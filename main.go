@@ -1,7 +1,9 @@
 package main
 
-//import "simpleGoService/dataAccess"
+//import "simpleGoService/server"
 
 func main() {
+
+	// start server
 
 }
