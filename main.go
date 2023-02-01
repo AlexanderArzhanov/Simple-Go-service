@@ -1,9 +1,8 @@
 package main
 
-//import "simpleGoService/server"
+import "simpleGoService/server"
 
 func main() {
-
-	// start server
-
+	server := server.NewServer("localhost", 3030)
+	server.Start()
 }
