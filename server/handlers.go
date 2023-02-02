@@ -1,27 +1,31 @@
 package server
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 func getAllEvents(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, 1)
+	ctx.JSON(http.StatusOK, "all")
 }
 
 func getEventByID(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, 2)
+	id := ctx.Params.ByName("id")
+	ctx.JSON(http.StatusOK, fmt.Sprintf("det by id %s", id))
 }
 
 func deleteEventByID(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, 3)
+	id := ctx.Params.ByName("id")
+	ctx.JSON(http.StatusOK, fmt.Sprintf("delete by id %s", id))
 }
 
 func updateEventByID(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, 4)
+	id := ctx.Params.ByName("id")
+	ctx.JSON(http.StatusOK, fmt.Sprintf("update by id %s", id))
 }
 
 func createEvent(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, 5)
+	ctx.JSON(http.StatusOK, "create")
 }
