@@ -13,7 +13,7 @@ type Server struct {
 	router *gin.Engine
 }
 
-func newServer(addr string, port int) *Server {
+func NewServer(addr string, port int) *Server {
 
 	var server Server
 
@@ -33,7 +33,7 @@ func newServer(addr string, port int) *Server {
 	return &server
 }
 
-func (server *Server) start() {
+func (server *Server) Start() {
 	host := fmt.Sprintf("%s:%d", server.addr, server.port)
 	server.router.Run(host)
 }
