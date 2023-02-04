@@ -21,8 +21,8 @@ services:
       POSTGRES_PASSWORD: "password"
       PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
-      - ./pgdata:/var/lib/postgresql/data/pgdata
-      - ./postgresql.conf:/etc/postgresql/postgresql.conf
+        - ./PostgreSQL/pgdata:/var/lib/postgresql/data/pgdata
+        - ./PostgreSQL/postgresql.conf:/etc/postgresql/postgresql.conf
     ports:
       - "5432:5432"
     expose:
