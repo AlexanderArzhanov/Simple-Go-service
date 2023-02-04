@@ -7,6 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func getDefault(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK, "Default")
+}
+
 func getAllEvents(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, "all")
 }

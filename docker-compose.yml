@@ -1,0 +1,61 @@
+version: "3.9"
+services:
+  
+  app:
+    container_name: simple_go_service
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - net
+
+  postgres:
+    container_name: pg_container
+    image: postgres:latest 
+    #command: postgres -c config_file=/etc/postgresql/postgresql.conf
+    environment:
+      POSTGRES_DB: "4q"
+      POSTGRES_USER: "alex"
+      POSTGRES_PASSWORD: "password"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data/pgdata
+      - ./postgresql.conf:/etc/postgresql/postgresql.conf
+    ports:
+      - "5432:5432"
+    expose:
+      - 5432
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 4G
+    networks:
+      - net
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "arzhanov.av@yandex.ru"
+      PGADMIN_DEFAULT_PASSWORD: "password"
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    ports:
+      - "5050:80"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1G
+    networks:
+      - net
+
+networks:
+   net:
+    driver: bridge
+
+      
