@@ -12,12 +12,12 @@ services:
       - net
 
   postgres:
-    container_name: pg_container
+    container_name: pgdb
     image: postgres:latest 
     #command: postgres -c config_file=/etc/postgresql/postgresql.conf
     environment:
-      POSTGRES_DB: "4q"
-      POSTGRES_USER: "alex"
+      POSTGRES_DB: "pgdb"
+      POSTGRES_USER: "admin"
       POSTGRES_PASSWORD: "password"
       PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
@@ -40,7 +40,7 @@ services:
     container_name: pgadmin_container
     image: dpage/pgadmin4:latest
     environment:
-      PGADMIN_DEFAULT_EMAIL: "arzhanov.av@yandex.ru"
+      PGADMIN_DEFAULT_EMAIL: "SimpleGoService@yandex.ru"
       PGADMIN_DEFAULT_PASSWORD: "password"
       PGADMIN_CONFIG_SERVER_MODE: "False"
     ports:
@@ -56,6 +56,4 @@ services:
 
 networks:
    net:
-    driver: bridge
-
-      
+       driver: bridge
