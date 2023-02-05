@@ -3,7 +3,7 @@ FROM golang:1.17-alpine
 
 WORKDIR /app
 
-RUN go get github.com/gin-gonic/gin
+RUN go get github.com/gin-gonic/gin && go get github.com/jackc/pgx/v5/pgxpool
 
 COPY . .
 
