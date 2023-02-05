@@ -21,8 +21,8 @@ services:
       POSTGRES_PASSWORD: "password"
       PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
-        - ./PostgreSQL/pgdata:/var/lib/postgresql/data/pgdata
-        - ./PostgreSQL/postgresql.conf:/etc/postgresql/postgresql.conf
+      - ./PostgreSQL/pgdata:/var/lib/postgresql/data/pgdata
+      #- ./PostgreSQL/postgresql.conf:/etc/postgresql/postgresql.conf
     ports:
       - "5432:5432"
     expose:
@@ -33,24 +33,6 @@ services:
         limits:
           cpus: '1'
           memory: 4G
-    networks:
-      - net
-
-  pgadmin:
-    container_name: pgadmin_container
-    image: dpage/pgadmin4:latest
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "SimpleGoService@yandex.ru"
-      PGADMIN_DEFAULT_PASSWORD: "password"
-      PGADMIN_CONFIG_SERVER_MODE: "False"
-    ports:
-      - "5050:80"
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 1G
     networks:
       - net
 

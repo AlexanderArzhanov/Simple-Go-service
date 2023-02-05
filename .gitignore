@@ -1,4 +1,4 @@
 pgdata/
 pgdata\
-PostgreSQL/
-PostgreSQL\
+/pgdata
+\pgdata
