@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-    dataAccess "simpleGoService/dataAccess"
+    "simpleGoService/dataAccess"
 )
 
 func getDefault(ctx *gin.Context) {
@@ -14,7 +14,9 @@ func getDefault(ctx *gin.Context) {
 }
 
 func getAllEvents(ctx *gin.Context) {
-    ctx.JSON(http.StatusOK, dataAccess.ReadAll)
+    handlerRequest := dataAccess.ReadAll()
+    ctx.JSON(http.StatusOK, handlerRequest)
+   // dataAccess.ReadAll()
 }
 
 func getEventByID(ctx *gin.Context) {
