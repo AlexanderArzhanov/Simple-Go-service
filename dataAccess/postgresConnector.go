@@ -5,26 +5,48 @@ import (
     "fmt"
     "os"
 
-    pgx "github.com/jackc/pgx"
+    pgxpool "github.com/jackc/pgx/v5/pgxpool"
 )
 
-func PostgreSQL_ReadAll()  {
+func PostgreSQLReadAll() string  {
 
     pgdbUrl := "postgres://admin:password@localhost:5432/pgdb"
-    conn, err := pgx.Connect()    .   Connect   (context.Background(), pgdbUrl)
+    config, err := pgxpool.ParseConfig(pgdbUrl)
     if err != nil{
-        fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
+        return  fmt.Sprintf("%s:%s", "Unable to connect to database: ", err)
         os.Exit(1)
     }
 
-  //  defer conn.Close(context.Background())
+    conn, err := pgxpool.NewWithConfig(context.Background(), config)
 
-   // var SQLRequest = "select * from pg_catalog.pg_aggregate"
+    defer conn.Close()
 
-   // Result :=
+    var SQLRequest = "select * from pg_catalog.pg_aggregate"
 
+    rows, err := conn.Query(context.Background(), SQLRequest)
 
+    if err != nil{
 
+    }
 
-    //pgx.
+    var data string
+    for rows.Next() {
+        values, err := rows.Values()
+        if err != nil {
+
+        }
+
+        id := values[0].(int32)
+        firstName := values[1].(string)
+        lastName := values[2].(string)
+        email := values[3].(string)
+        age := values[4].(int32)
+
+        rowData := fmt.Sprintf("%d %s %s %s %d\n", id, firstName, lastName, email, age)
+
+        data = fmt.Sprintf("%s %s", data, rowData)
+
+    }
+
+    return data
 }
