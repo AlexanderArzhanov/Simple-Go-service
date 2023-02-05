@@ -14,15 +14,14 @@ services:
   postgres:
     container_name: pgdb
     image: postgres:latest 
-    #command: postgres -c config_file=/etc/postgresql/postgresql.conf
     environment:
       POSTGRES_DB: "pgdb"
       POSTGRES_USER: "admin"
       POSTGRES_PASSWORD: "password"
       PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
-      - ./PostgreSQL/pgdata:/var/lib/postgresql/data/pgdata
-      #- ./PostgreSQL/postgresql.conf:/etc/postgresql/postgresql.conf
+      #- ./PostgreSQL/pgdata:/var/lib/postgresql/data/pgdata
+      - ./PostgreSQL/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
     expose:
