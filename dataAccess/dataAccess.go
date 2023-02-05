@@ -1,5 +1,5 @@
 package dataAccess
 
-func ReadAll()  {
-    PostgreSQLReadAll()
+func ReadAll() string {
+    return PostgreSQLReadAll()
 }
