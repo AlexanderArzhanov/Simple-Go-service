@@ -20,12 +20,24 @@ func getAllEvents(ctx *gin.Context) {
 
 func getEventByID(ctx *gin.Context) {
 	id := ctx.Params.ByName("id")
-	ctx.JSON(http.StatusOK, fmt.Sprintf("det by id %s", id))
+
+	if len(id) > 1 {
+		id = id[1:]
+	}
+
+	handlerRequest := dataAccess.GetEventByID(id)
+	ctx.JSON(http.StatusOK, &handlerRequest)
 }
 
 func deleteEventByID(ctx *gin.Context) {
 	id := ctx.Params.ByName("id")
-	ctx.JSON(http.StatusOK, fmt.Sprintf("delete by id %s", id))
+
+	if len(id) > 1 {
+		id = id[1:]
+	}
+
+	dataAccess.DeleteEventByID(id)
+	//ctx.JSON(http.StatusOK, handlerRequest)
 }
 
 func updateEventByID(ctx *gin.Context) {
