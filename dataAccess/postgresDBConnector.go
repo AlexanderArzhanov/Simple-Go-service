@@ -1,40 +1,38 @@
 package dataAccess
 
 import (
-    "context"
-    //"fmt"
+	"context"
 
-    //"os"
+	//"os"
 
-    pgxpool "github.com/jackc/pgx/v4/pgxpool"
+	pgxpool "github.com/jackc/pgx/v4/pgxpool"
 )
 
 var PGDBConn PostgresConnection
 
 type PostgresConnection struct {
-    dbUrl string
+	dbUrl string
 
-    Connection *pgxpool.Pool
+	Connection *pgxpool.Pool
 }
 
 func NewPostgresConnection() {
 
-    dbUrl := "postgres://admin:password@localhost:5432/pgdb"
+	dbUrl := "postgres://admin:password@localhost:5432/pgdb"
 
-    config, err := pgxpool.ParseConfig(dbUrl)
-    if err != nil {
-        //return fmt.Sprintf("%s:%s", "Unable to connect to database: ", err)
-    }
+	config, err := pgxpool.ParseConfig(dbUrl)
+	if err != nil {
+		panic(err)
+	}
 
-    conn, err := pgxpool.ConnectConfig(context.Background(), config)
-    if err != nil {
-        //return fmt.Sprintf("%s:%s", "Unable to connect to database: ", err)
-    }
+	conn, err := pgxpool.ConnectConfig(context.Background(), config)
+	if err != nil {
+		panic(err)
+	}
 
-    var postgresConnection PostgresConnection
-    postgresConnection.dbUrl = dbUrl
-    postgresConnection.Connection = conn
+	var postgresConnection PostgresConnection
+	postgresConnection.dbUrl = dbUrl
+	postgresConnection.Connection = conn
 
-    PGDBConn = postgresConnection
+	PGDBConn = postgresConnection
 }
-
