@@ -1,5 +1,9 @@
 package dataAccess
 
-func ReadAll() string {
-    return PGDBConn.PostgreSQLReadAll()
+import (
+	internallogic "simpleGoService/InternalLogic"
+)
+
+func ReadAll() []internallogic.Event {
+	return PGDBConn.PostgreSQLReadAll()
 }

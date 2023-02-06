@@ -23,9 +23,9 @@ func NewServer(addr string, port int) *Server {
 	router := gin.Default()
 
 	router.GET("/", getDefault)
-    router.GET("/events", getAllEvents)
+	router.GET("/events", getAllEvents)
 	router.GET("/events/get/:id", getEventByID)
-	router.GET("/events/delete/:id", deleteEventByID)
+	router.DELETE("/events/delete/:id", deleteEventByID)
 	router.POST("/events/update", updateEventByID)
 	router.POST("/events/create", createEvent)
 
@@ -37,4 +37,8 @@ func NewServer(addr string, port int) *Server {
 func (server *Server) Start() {
 	host := fmt.Sprintf("%s:%d", server.addr, server.port)
 	server.router.Run(host)
+}
+
+func (server *Server) Stop() {
+	fmt.Println("Server stopped")
 }

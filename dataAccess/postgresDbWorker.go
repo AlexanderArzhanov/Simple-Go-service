@@ -2,14 +2,11 @@ package dataAccess
 
 import (
 	"context"
-	"fmt"
-	//"os"
-	//pgxpool "github.com/jackc/pgx/v4/pgxpool"
+	internallogic "simpleGoService/InternalLogic"
+	"time"
 )
 
-func (PostgresConnection *PostgresConnection) PostgreSQLReadAll() string {
-
-	//defer postgresConnection.Connection.Close()
+func (PostgresConnection *PostgresConnection) PostgreSQLReadAll() []internallogic.Event {
 
 	var SQLRequest = "select * from events"
 
@@ -18,7 +15,7 @@ func (PostgresConnection *PostgresConnection) PostgreSQLReadAll() string {
 
 	}
 
-	var dataResult string
+	events := []internallogic.Event{}
 	for rows.Next() {
 
 		values, err := rows.Values()
@@ -27,12 +24,24 @@ func (PostgresConnection *PostgresConnection) PostgreSQLReadAll() string {
 		}
 
 		id := values[0].(int32)
+		msg := values[1].(string)
 
-		//rowData := fmt.Sprintf("%d %s %s %s %d\n", id, firstName, lastName, email, age)
-		rowData := fmt.Sprintf("%d\n", id)
+		var created_at time.Time
+		value2 := values[2]
+		if value2 != nil {
+			created_at = value2.(time.Time)
+		}
 
-		dataResult = fmt.Sprintf("%s %s\n", dataResult, rowData)
+		var updated_at time.Time
+		value3 := values[3]
+		if value3 != nil {
+			updated_at = value3.(time.Time)
+		}
+
+		event := internallogic.NewEvent(id, msg, created_at, updated_at)
+
+		events = append(events, *event)
 	}
 
-	return dataResult
+	return events
 }

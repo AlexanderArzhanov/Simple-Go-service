@@ -15,8 +15,7 @@ func getDefault(ctx *gin.Context) {
 
 func getAllEvents(ctx *gin.Context) {
 	handlerRequest := dataAccess.ReadAll()
-	ctx.JSON(http.StatusOK, handlerRequest)
-	// dataAccess.ReadAll()
+	ctx.IndentedJSON(http.StatusOK, &handlerRequest)
 }
 
 func getEventByID(ctx *gin.Context) {
