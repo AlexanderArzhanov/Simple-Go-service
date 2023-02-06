@@ -23,7 +23,7 @@ func NewServer(addr string, port int) *Server {
 	router := gin.Default()
 
 	router.GET("/", getDefault)
-	router.GET("/events", getAllEvents)
+    router.GET("/events", getAllEvents)
 	router.GET("/events/get/:id", getEventByID)
 	router.GET("/events/delete/:id", deleteEventByID)
 	router.POST("/events/update", updateEventByID)

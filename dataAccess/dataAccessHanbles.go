@@ -1,5 +1,5 @@
 package dataAccess
 
 func ReadAll() string {
-    return PostgreSQLReadAll()
+    return PGDBConn.PostgreSQLReadAll()
 }

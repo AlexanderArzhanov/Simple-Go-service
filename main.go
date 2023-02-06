@@ -1,9 +1,14 @@
 package main
 
-import "simpleGoService/server"
+import (
+    "simpleGoService/dataAccess"
+    "simpleGoService/server"
+)
 
 func main() {
 
-	server := server.NewServer("", 8080)
+    dataAccess.NewPostgresConnection()
+
+    server := server.NewServer("", 8080)
 	server.Start()
 }
