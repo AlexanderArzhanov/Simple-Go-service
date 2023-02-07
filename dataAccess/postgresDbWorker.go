@@ -102,10 +102,10 @@ func (PostgresConnection *PostgresConnection) PostgreSQLDeleteEventByID(id strin
 func (PostgresConnection *PostgresConnection) PostgreSQLInsertEvent(event *internallogic.Event) string {
 
 	mgg := event.Msg
-	created_at := event.Created_at
+	//created_at := event.Created_at
 
-	SQLRequest := fmt.Sprintf("insert into events (msg, created_at) values (%s, %s)", mgg, created_at)
-
+	//SQLRequest := fmt.Sprintf("insert into events (msg, created_at) values (%s, %s)", mgg, created_at)
+	SQLRequest := fmt.Sprintf("insert into events (msg) values ('%s')", mgg)
 	_, err := PostgresConnection.Connection.Query(context.Background(), SQLRequest)
 	if err != nil {
 		return err.Error()
