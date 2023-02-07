@@ -1,7 +1,6 @@
 package server
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -46,6 +45,11 @@ func createEvent(ctx *gin.Context) {
 }
 
 func updateEventByID(ctx *gin.Context) {
-	id := ctx.Params.ByName("id")
-	ctx.JSON(http.StatusOK, fmt.Sprintf("update by id %s", id))
+
+	event := new(internallogic.Event)
+	ctx.BindJSON(event)
+
+	handlerRequest := dataAccess.UpdateEvent(event)
+
+	ctx.JSON(http.StatusOK, &handlerRequest)
 }
