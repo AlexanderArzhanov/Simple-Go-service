@@ -13,5 +13,9 @@ func GetEventByID(id string) []internallogic.Event {
 }
 
 func DeleteEventByID(id string) string {
-	return PGDBConn.PostgreSQLDeleteSelectionByID(id)
+	return PGDBConn.PostgreSQLDeleteEventByID(id)
+}
+
+func CreateEvent(event *internallogic.Event) string {
+	return PGDBConn.PostgreSQLInsertEvent(event)
 }

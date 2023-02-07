@@ -87,7 +87,7 @@ func (PostgresConnection *PostgresConnection) PostgreSQLGetSelectionByID(id stri
 	return events
 }
 
-func (PostgresConnection *PostgresConnection) PostgreSQLDeleteSelectionByID(id string) string {
+func (PostgresConnection *PostgresConnection) PostgreSQLDeleteEventByID(id string) string {
 
 	SQLRequest := fmt.Sprintf("%s %s", "delete from events where id = ", id)
 
@@ -96,5 +96,20 @@ func (PostgresConnection *PostgresConnection) PostgreSQLDeleteSelectionByID(id s
 		return err.Error()
 	} else {
 		return "data was deleted"
+	}
+}
+
+func (PostgresConnection *PostgresConnection) PostgreSQLInsertEvent(event *internallogic.Event) string {
+
+	mgg := event.Msg
+	created_at := event.Created_at
+
+	SQLRequest := fmt.Sprintf("insert into events (msg, created_at) values (%s, %s)", mgg, created_at)
+
+	_, err := PostgresConnection.Connection.Query(context.Background(), SQLRequest)
+	if err != nil {
+		return err.Error()
+	} else {
+		return "data was created"
 	}
 }

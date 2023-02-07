@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	internallogic "simpleGoService/InternalLogic"
 	"simpleGoService/dataAccess"
 )
 
@@ -31,20 +32,20 @@ func getEventByID(ctx *gin.Context) {
 
 func deleteEventByID(ctx *gin.Context) {
 	id := ctx.Params.ByName("id")
-
-	if len(id) > 1 {
-		id = id[1:]
-	}
-
 	dataAccess.DeleteEventByID(id)
-	//ctx.JSON(http.StatusOK, handlerRequest)
+}
+
+func createEvent(ctx *gin.Context) {
+
+	event := new(internallogic.Event)
+	ctx.BindJSON(event)
+
+	handlerRequest := dataAccess.CreateEvent(event)
+
+	ctx.JSON(http.StatusOK, &handlerRequest)
 }
 
 func updateEventByID(ctx *gin.Context) {
 	id := ctx.Params.ByName("id")
 	ctx.JSON(http.StatusOK, fmt.Sprintf("update by id %s", id))
-}
-
-func createEvent(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, "create")
 }
