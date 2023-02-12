@@ -2,6 +2,7 @@ package dataAccess
 
 import (
 	"context"
+	"fmt"
 
 	//"os"
 
@@ -16,9 +17,9 @@ type PostgresConnection struct {
 	Connection *pgxpool.Pool
 }
 
-func NewPostgresConnection() {
+func NewPostgresConnection(user string, password string, addr string, port int, dbname string) {
 
-	dbUrl := "postgres://admin:password@localhost:5432/pgdb"
+	dbUrl := fmt.Sprintf("postgres://%s:%s@%s:%d/%s", user, password, addr, port, dbname)
 
 	config, err := pgxpool.ParseConfig(dbUrl)
 	if err != nil {
