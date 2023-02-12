@@ -8,8 +8,8 @@ services:
       dockerfile: dockerfile
     ports:
       - "8080:8080"
-    networks:
-      - net
+    links:
+      - "postgres"
 
   postgres:
     container_name: pgdb
@@ -32,9 +32,3 @@ services:
         limits:
           cpus: '1'
           memory: 4G
-    networks:
-      - net
-
-networks:
-   net:
-       driver: bridge
