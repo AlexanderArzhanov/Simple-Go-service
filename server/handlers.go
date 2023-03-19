@@ -14,7 +14,7 @@ func getDefault(ctx *gin.Context) {
 }
 
 func getAllEvents(ctx *gin.Context) {
-	handlerRequest := dataAccess.ReadAll()
+	handlerRequest := dataAccess.ServiceDataConn.ReadAll()
 	ctx.IndentedJSON(http.StatusOK, &handlerRequest)
 }
 
@@ -25,13 +25,13 @@ func getEventByID(ctx *gin.Context) {
 		id = id[1:]
 	}
 
-	handlerRequest := dataAccess.GetEventByID(id)
+	handlerRequest := dataAccess.ServiceDataConn.GetEventByID(id)
 	ctx.JSON(http.StatusOK, &handlerRequest)
 }
 
 func deleteEventByID(ctx *gin.Context) {
 	id := ctx.Params.ByName("id")
-	dataAccess.DeleteEventByID(id)
+	dataAccess.ServiceDataConn.DeleteEventByID(id)
 }
 
 func createEvent(ctx *gin.Context) {
@@ -39,7 +39,7 @@ func createEvent(ctx *gin.Context) {
 	event := new(internallogic.Event)
 	ctx.BindJSON(event)
 
-	handlerRequest := dataAccess.CreateEvent(event)
+	handlerRequest := dataAccess.ServiceDataConn.CreateEvent(event)
 
 	ctx.JSON(http.StatusOK, &handlerRequest)
 }
@@ -49,7 +49,7 @@ func updateEventByID(ctx *gin.Context) {
 	event := new(internallogic.Event)
 	ctx.BindJSON(event)
 
-	handlerRequest := dataAccess.UpdateEvent(event)
+	handlerRequest := dataAccess.ServiceDataConn.UpdateEvent(event)
 
 	ctx.JSON(http.StatusOK, &handlerRequest)
 }

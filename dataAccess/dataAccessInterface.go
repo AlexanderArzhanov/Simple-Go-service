@@ -1,25 +1,15 @@
 package dataAccess
 
-import (
-	internallogic "simpleGoService/InternalLogic"
-)
+import internallogic "simpleGoService/InternalLogic"
 
-func ReadAll() []internallogic.Event {
-	return PGDBConn.PostgreSQLReadAll()
-}
+var ServiceDataConn ServiceData
 
-func GetEventByID(id string) []internallogic.Event {
-	return PGDBConn.PostgreSQLGetSelectionByID(id)
-}
+type ServiceData interface {
+	NewConnection(map[string]string)
 
-func DeleteEventByID(id string) string {
-	return PGDBConn.PostgreSQLDeleteEventByID(id)
-}
-
-func CreateEvent(event *internallogic.Event) string {
-	return PGDBConn.PostgreSQLInsertEvent(event)
-}
-
-func UpdateEvent(event *internallogic.Event) string {
-	return PGDBConn.PostgreSQLUpdateEvent(event)
+	ReadAll() []internallogic.Event
+	GetEventByID(string) []internallogic.Event
+	DeleteEventByID(string) string
+	CreateEvent(*internallogic.Event) string
+	UpdateEvent(*internallogic.Event) string
 }
