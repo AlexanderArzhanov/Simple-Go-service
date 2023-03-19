@@ -2,9 +2,9 @@ package dataAccess
 
 import internallogic "simpleGoService/InternalLogic"
 
-var ServiceDataConn ServiceData
+var ServiceDataConn ServiceDataConnection
 
-type ServiceData interface {
+type ServiceDataConnection interface {
 	Connect(map[string]string)
 	ReadAll() []internallogic.Event
 	GetEventByID(string) []internallogic.Event
@@ -13,6 +13,10 @@ type ServiceData interface {
 	UpdateEvent(*internallogic.Event) string
 }
 
-func NewConnection() *PostgresConnection {
+func NewConnection() ServiceDataConnection {
+	/*var SDConn ServiceDataConnection
+	SDConn = &PostgresConnection{}
+	return SDConn*/
+
 	return &PostgresConnection{}
 }
