@@ -14,7 +14,7 @@ type PostgresConnection struct {
 	Connection *pgxpool.Pool
 }
 
-func (PostgresConn *PostgresConnection) NewConnection(connData map[string]string) {
+func (PostgresConn *PostgresConnection) Connect(connData map[string]string) {
 
 	user := connData["user"]
 	password := connData["password"]

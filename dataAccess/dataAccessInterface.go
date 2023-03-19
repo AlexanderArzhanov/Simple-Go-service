@@ -5,11 +5,14 @@ import internallogic "simpleGoService/InternalLogic"
 var ServiceDataConn ServiceData
 
 type ServiceData interface {
-	NewConnection(map[string]string)
-
+	Connect(map[string]string)
 	ReadAll() []internallogic.Event
 	GetEventByID(string) []internallogic.Event
 	DeleteEventByID(string) string
 	CreateEvent(*internallogic.Event) string
 	UpdateEvent(*internallogic.Event) string
+}
+
+func NewConnection() *PostgresConnection {
+	return &PostgresConnection{}
 }
