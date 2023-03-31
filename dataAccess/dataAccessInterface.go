@@ -14,7 +14,7 @@ type ServiceDataConnection interface {
 }
 
 func NewConnection() ServiceDataConnection {
-	/*var SDConn ServiceDataConnection
+	/*var SDConn ServiceDataConnection //
 	SDConn = &PostgresConnection{}
 	return SDConn*/
 
